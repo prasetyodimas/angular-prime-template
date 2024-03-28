@@ -32,10 +32,10 @@ jobs:
         run: | 
           if npm run test:ci; then
             echo "Tests passed"
-            echo "name={name}={value}" >> ${{SUCCESS_CONDITION}}
+            echo "name={name}={value} ${{SUCCESS_CONDITION}}"
           else
             echo "Tests failed"
-            echo "name={name}={value}" >> ${{FAILED_CONDITION}}
+            echo "name={name}={value} ${{FAILED_CONDITION}}"
           fi
 
       - name: Check test status
