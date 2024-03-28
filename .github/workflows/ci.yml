@@ -42,9 +42,9 @@ jobs:
             echo "unit_test_status=success" >> $GITHUB_ENV
           else
             echo "PLEASE BE AWARE TEST HAS BEEN FAILED !"
-             echo "unit_test_status=failure" >> $GITHUB_ENV
+            echo "unit_test_status=failure" >> $GITHUB_ENV
           fi
 
       - name: Check test status
         run: exit 1
-        if: ${{ steps.unit-tests.outputs.unit_test_status  == 'failure' }}
+        if: ${{ job.status == 'failure' }}
