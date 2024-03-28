@@ -11,9 +11,6 @@ on:
 
 jobs:
   build:
-    env:
-      SUCCESS_CONDITION: success.txt
-      FAILED_CONDITION: failed.txt
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,17 +27,24 @@ jobs:
       - name: Build of code 
         run: npm run build
 
+      - name: Set build status
+        run: echo "build_status=${{ job.status }}" >> $GITHUB_ENV
+      
+      - name: Check build status
+        run: exit 1
+        if: ${{ success() == false }}
+
       - name: Run unit tests
         id: unit-tests
         run: | 
           if npm run test:ci; then
-            echo "Tests passed"
-            echo "name={name}={value}" >> $SUCCESS_CONDITION
+            echo "AWESOME UNIT TEST IS PASSED !"
+            echo "unit_test_status=success" >> $GITHUB_ENV
           else
-            echo "Tests failed"
-            echo "name={name}={value}" >> $FAILED_CONDITION
+            echo "PLEASE BE AWARE TEST HAS BEEN FAILED !"
+             echo "unit_test_status=failure" >> $GITHUB_ENV
           fi
 
       - name: Check test status
         run: exit 1
-        if: ${{ steps.unit-tests.outputs.status == 'failure' }}
+        if: ${{ steps.unit-tests.outputs.unit_test_status  == 'failure' }}
