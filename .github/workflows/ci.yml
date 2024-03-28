@@ -11,6 +11,9 @@ on:
 
 jobs:
   build:
+    env:
+      SUCCESS_CONDITION: success.txt
+      FAILED_CONDITION: failed.txt
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
