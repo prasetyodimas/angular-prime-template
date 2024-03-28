@@ -12,10 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    env:
-      CI_DEPENDENCIES: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
