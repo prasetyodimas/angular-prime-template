@@ -47,4 +47,4 @@ jobs:
 
       - name: Check test status
         run: exit 1
-        if: ${{ job.status == 'failure' }}
+        if: ${{ steps.unit-tests.outputs.unit_test_status == 'failure' }}
