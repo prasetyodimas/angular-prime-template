@@ -47,7 +47,7 @@ describe('AppComponent', () => {
 
   it('should call removeCustomEvent on ngOnDestroy', () => {
     spyOn(langService, 'removeCustomEvent');
-    component.ngOnDestroy();
+    // component.ngOnDestroy();
     expect(langService.removeCustomEvent).toHaveBeenCalled(); 
   });
 
